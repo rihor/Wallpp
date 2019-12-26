@@ -16,6 +16,18 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
-})
+Route.post('user', 'UserController.store').validator('User')
+Route.post('session', 'SessionController.store')
+
+Route.get('/file/:id', 'FileController.show')
+
+/**
+ * Private routes
+ */
+Route.group(() => {
+  Route.post('/file', 'FileController.store')
+
+  Route.get('/user/:id', 'UserController.show')
+
+  Route.resource('wallpaper', 'WallpaperController').apiOnly()
+}).middleware(['auth'])

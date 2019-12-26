@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Wallpaper = use('App/Models/Wallpaper')
+
 /**
  * Resourceful controller for interacting with wallpapers
  */
@@ -17,18 +19,16 @@ class WallpaperController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ request }) {
+    // request.get() has the QUERY params
+    const { page } = request.get()
 
-  /**
-   * Render a form to be used for creating a new wallpaper.
-   * GET wallpapers/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create({ request, response, view }) {}
+    const wallpapers = await Wallpaper.query()
+      .with('user')
+      .paginate(page)
+
+    return wallpapers
+  }
 
   /**
    * Create/save a new wallpaper.
@@ -38,7 +38,13 @@ class WallpaperController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {}
+  async store({ request }) {
+    const data = request.only(['title', 'description'])
+
+    const wallpaper = await Wallpaper.create({ ...data, user_id: auth.user.id })
+
+    return wallpaper
+  }
 
   /**
    * Display a single wallpaper.
@@ -49,18 +55,14 @@ class WallpaperController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {}
+  async show({ params }) {
+    const wallpaper = await Wallpaper.findOrFail(params.id)
 
-  /**
-   * Render a form to update an existing wallpaper.
-   * GET wallpapers/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit({ params, request, response, view }) {}
+    // will return with user data
+    await wallpaper.load('user')
+
+    return wallpaper
+  }
 
   /**
    * Update wallpaper details.
@@ -70,7 +72,17 @@ class WallpaperController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  async update({ params, request, response }) {
+    const data = request.only(['title', 'description'])
+
+    const wallpaper = await Wallpaper.findOrFail(params.id)
+
+    wallpaper.merge(data)
+
+    await wallpaper.save()
+
+    return wallpaper
+  }
 
   /**
    * Delete a wallpaper with id.
@@ -80,7 +92,11 @@ class WallpaperController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params }) {
+    const wallpaper = await Wallpaper.findOrFail(params.id)
+
+    await wallpaper.delete()
+  }
 }
 
 module.exports = WallpaperController
