@@ -36,8 +36,8 @@ class WallpaperController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request }) {
-    const data = request.only(['title', 'description'])
+  async store({ request, auth }) {
+    const data = request.only(['title', 'description', 'file_id'])
 
     const wallpaper = await Wallpaper.create({ ...data, user_id: auth.user.id })
 
@@ -71,7 +71,7 @@ class WallpaperController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const data = request.only(['title', 'description'])
+    const data = request.only(['title', 'description', 'file_id'])
 
     const wallpaper = await Wallpaper.findOrFail(params.id)
 
