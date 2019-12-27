@@ -24,10 +24,10 @@ Route.get('/file/:id', 'FileController.show')
 /**
  * Private routes
  */
-Route.group(() => {
-  Route.post('/file', 'FileController.store')
+// Route.group(() => {
+Route.post('/file', 'FileController.store')
 
-  Route.get('/user/:id', 'UserController.show')
+Route.get('/user/:id', 'UserController.show')
 
-  Route.resource('wallpaper', 'WallpaperController').apiOnly()
-}).middleware(['auth'])
+Route.resource('wallpaper', 'WallpaperController').apiOnly()
+// }).middleware(['auth'])
