@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.post('user', 'UserController.store').validator('User')
-Route.post('session', 'SessionController.store')
+Route.post('session', 'SessionController.store').validator('Session')
 
 Route.get('/file/:id', 'FileController.show')
 
