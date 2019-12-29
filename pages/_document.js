@@ -1,29 +1,29 @@
-import Document, { Head, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
-import React from "react";
+import Document, { Head, Main, NextScript } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
+import React from 'react'
 
 export default class MyDocument extends Document {
-	static getInitialProps({ renderPage }) {
-		const sheet = new ServerStyleSheet();
-		const page = renderPage(App => props =>
-			sheet.collectStyles(<App {...props} />)
-		);
+  static getInitialProps({ renderPage }) {
+    const sheet = new ServerStyleSheet()
+    const page = renderPage(App => props =>
+      sheet.collectStyles(<App {...props} />)
+    )
 
-		const styleTags = sheet.getStyleElement();
+    const styleTags = sheet.getStyleElement()
 
-		return { ...page, styleTags };
-	}
+    return { ...page, styleTags }
+  }
 
-	render() {
-		return (
-			<html>
-				<title>Wallpp</title>
-				<Head>{this.props.styleTags}</Head>
-				<body>
-					<Main />
-					<NextScript />
-				</body>
-			</html>
-		);
-	}
+  render() {
+    return (
+      <html>
+        <title>Wallpp</title>
+        <Head>{this.props.styleTags}</Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    )
+  }
 }
