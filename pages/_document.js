@@ -18,7 +18,13 @@ export default class MyDocument extends Document {
     return (
       <html>
         <title>Wallpp</title>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          {this.props.styleTags}
+          <link
+            href="https://fonts.googleapis.com/css?family=Heebo|Open+Sans&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
