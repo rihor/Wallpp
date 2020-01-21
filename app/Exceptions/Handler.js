@@ -23,8 +23,21 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async handle(error, { request, response }) {
-    if (error.name === 'ValidationException') {
-      return response.status(error.status).send(error.messages)
+    switch (error.name) {
+      case 'ValidationException':
+        return response.status(error.status).send(error.messages)
+      case 'InvalidJwtToken':
+        return response
+          .status(error.status)
+          .send({ error: 'Invalid token, try doing login again!' })
+      case 'UserNotFoundException':
+        return response
+          .status(error.status)
+          .send({ error: "Couldn't find the user, please check your input" })
+      case 'ModelNotFoundException':
+        return response
+          .status(error.status)
+          .send({ error: "Couldn't find the file, please check your input" })
     }
 
     if (Env.get('NODE_ENV') === 'development') {

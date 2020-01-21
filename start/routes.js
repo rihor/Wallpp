@@ -16,25 +16,26 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('user', 'UserController.store').validator('User')
+Route.post('users', 'UserController.store').validator('User')
 Route.post('session', 'SessionController.store').validator('Session')
 
-Route.get('/file/:id', 'FileController.show')
+Route.get('/files/:id', 'FileController.show')
 
 /**
  * Private routes
  */
 Route.group(() => {
-  Route.post('/file', 'FileController.store')
+  Route.post('/files', 'FileController.store')
 
-  Route.get('/user/:id', 'UserController.show')
-
-  Route.resource('wallpaper', 'WallpaperController')
-    .apiOnly()
-    .validator(
-      new Map([
-        [['wallpaper.store'], ['Wallpaper/Store']],
-        [['wallpaper.update'], ['Wallpaper/Update']]
-      ])
-    )
+  Route.get('/users/:id', 'UserController.show')
 }).middleware(['auth'])
+
+Route.resource('wallpapers', 'WallpaperController')
+  .apiOnly()
+  .validator(
+    new Map([
+      [['wallpapers.store'], ['Wallpaper/Store']],
+      [['wallpapers.update'], ['Wallpaper/Update']]
+    ])
+  )
+  .middleware(new Map([[['store', 'update', 'destroy'], ['auth']]]))

@@ -23,7 +23,11 @@ class WallpaperController {
     // request.get() has the QUERY params
     const { page } = request.get()
 
-    const wallpapers = await Wallpaper.query().paginate(page)
+    const wallpapers = await Wallpaper.query()
+      .with('file')
+      .paginate(page)
+
+    console.log(wallpapers)
 
     return wallpapers
   }
