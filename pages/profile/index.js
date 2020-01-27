@@ -1,11 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import withAuth from '../utils/withAuth'
-
-const Container = styled.div`
-  background: blue;
-`
+import { Container } from './styles'
 
 const Profile = () => <Container>PROFILE caralho</Container>
 
