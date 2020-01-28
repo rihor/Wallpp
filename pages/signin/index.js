@@ -1,14 +1,18 @@
 import React from 'react'
+import Link from 'next/link'
 
 import Form from '../../components/form'
 
-import { Container, Background } from './styles'
+import { Background, Container } from '../../styles/signPageStyle'
 
 const SignIn = () => (
   <Background>
     <Container>
       <h1>Sign in</h1>
-      <Form email password />
+      <Form email password buttonText="Sign in" />
+      <Link href="/signup">
+        <a>I am not registered yet!</a>
+      </Link>
     </Container>
   </Background>
 )

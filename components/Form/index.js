@@ -4,7 +4,15 @@ import { Formik, Field, ErrorMessage, Form } from 'formik'
 
 import { FormContainer } from './styles'
 
-function MyForm({ username, email, password, title, description, file }) {
+function MyForm({
+  username,
+  email,
+  password,
+  title,
+  description,
+  file,
+  buttonText
+}) {
   function getInitialValue() {
     const initialValue = {
       username: username ? '' : undefined,
@@ -37,17 +45,18 @@ function MyForm({ username, email, password, title, description, file }) {
             {email && (
               <div>
                 <label htmlFor="email">Email</label>
-                <Field name="email" id="email" />
+                <Field name="email" id="email" type="email" />
                 <ErrorMessage name="email" />
               </div>
             )}
             {password && (
               <div>
                 <label htmlFor="password">Password</label>
-                <Field name="password" id="password" />
+                <Field name="password" id="password" type="password" />
                 <ErrorMessage name="password" />
               </div>
             )}
+            <button type="submit">{buttonText}</button>
           </Form>
         )}
       </Formik>
@@ -61,7 +70,8 @@ MyForm.propTypes = {
   password: PropTypes.bool,
   title: PropTypes.bool,
   description: PropTypes.bool,
-  file: PropTypes.bool
+  file: PropTypes.bool,
+  buttonText: PropTypes.string.isRequired
 }
 
 export default MyForm
