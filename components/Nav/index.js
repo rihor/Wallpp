@@ -2,22 +2,22 @@ import React from 'react'
 import Link from 'next/link'
 import { MdAddBox } from 'react-icons/md'
 
-import { Container, Button } from '../styles'
+import { Header } from './styles'
 
 const Nav = () => (
-  <Container>
+  <Header>
     <div>
       <Link href="/">
         <a>
-          <Button title>Wallpp</Button>
+          <button>Wallpp</button>
         </a>
       </Link>
-      <Link href="/create">
+      <Link href="/wallpaper/create">
         <a>
-          <Button background>
+          <button>
             <MdAddBox size={20} color="#eee" />
             New post
-          </Button>
+          </button>
         </a>
       </Link>
     </div>
@@ -25,16 +25,16 @@ const Nav = () => (
     <div>
       <Link href="/signin">
         <a>
-          <Button>Sign in</Button>
+          <button>Sign in</button>
         </a>
       </Link>
       <Link href="/signup">
         <a>
-          <Button background>Sign up</Button>
+          <button>Sign up</button>
         </a>
       </Link>
     </div>
-  </Container>
+  </Header>
 )
 
 export default Nav

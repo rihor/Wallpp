@@ -4,20 +4,23 @@ import { Formik, Field, ErrorMessage, Form } from 'formik'
 
 import { FormContainer } from './styles'
 
-function MyForm({
-  username,
-  email,
-  password,
-  title,
-  description,
-  file,
-  buttonText
+function CustomForm({
+  username = false,
+  email = false,
+  password = false,
+  passwordConfirmation = false,
+  title = false,
+  description = false,
+  file = false,
+  buttonText,
+  onSubmit
 }) {
   function getInitialValue() {
     const initialValue = {
       username: username ? '' : undefined,
       email: email ? '' : undefined,
       password: password ? '' : undefined,
+      password_confirmation: passwordConfirmation ? '' : undefined,
       title: title ? '' : undefined,
       description: description ? '' : undefined,
       file: file ? null : undefined
@@ -26,13 +29,9 @@ function MyForm({
     return initialValue
   }
 
-  function handleSubmit(data) {
-    alert(JSON.stringify(data))
-  }
-
   return (
     <FormContainer>
-      <Formik initialValues={getInitialValue()} onSubmit={handleSubmit}>
+      <Formik initialValues={getInitialValue()} onSubmit={onSubmit}>
         {() => (
           <Form>
             {username && (
@@ -56,6 +55,19 @@ function MyForm({
                 <ErrorMessage name="password" />
               </div>
             )}
+            {passwordConfirmation && (
+              <div>
+                <label htmlFor="password_confirmation">
+                  Password confirmation
+                </label>
+                <Field
+                  name="password_confirmation"
+                  id="password_confirmation"
+                  type="password"
+                />
+                <ErrorMessage name="password_confirmation" />
+              </div>
+            )}
             <button type="submit">{buttonText}</button>
           </Form>
         )}
@@ -64,14 +76,16 @@ function MyForm({
   )
 }
 
-MyForm.propTypes = {
+CustomForm.propTypes = {
   username: PropTypes.bool,
   email: PropTypes.bool,
   password: PropTypes.bool,
   title: PropTypes.bool,
   description: PropTypes.bool,
   file: PropTypes.bool,
-  buttonText: PropTypes.string.isRequired
+  passwordConfirmation: PropTypes.bool,
+  buttonText: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
 
-export default MyForm
+export default CustomForm

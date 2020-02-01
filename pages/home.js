@@ -2,33 +2,30 @@ import React from 'react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
-import api from '../../services/api'
-import Nav from '../../components/nav'
-import WallpaperCard from '../../components/WallpaperCard'
-import { Background } from '../../styles'
-import { Container } from './styles'
+import Api from '../services/api'
+import Nav from '../components/nav'
+import WallpaperCard from '../components/WallpaperCard'
+import { Background } from '../styles'
 
 const Home = ({ wallpapers }) => (
   <Background>
     <Head>
       <title>Home</title>
       <link rel="icon" href="/favicon.ico" />
-      <link rel="stylesheet" href="../styles/reset.css" />
     </Head>
 
     <Nav />
-    {console.log(wallpapers)}
-    <Container>
+    <div>
       <ul>
         {wallpapers &&
           wallpapers.map(w => <WallpaperCard key={w.id} wallpaper={w} />)}
       </ul>
-    </Container>
+    </div>
   </Background>
 )
 
 Home.getInitialProps = async () => {
-  const response = await api.get('/wallpapers')
+  const response = await Api.get({ pathUrl: 'wallpapers' })
 
   return {
     wallpapers: response.data.data,
