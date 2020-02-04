@@ -27,8 +27,6 @@ class WallpaperController {
       .with('file')
       .paginate(page)
 
-    console.log(wallpapers)
-
     return wallpapers
   }
 
