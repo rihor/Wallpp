@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import Api from '../../services/api'
 import Form from '../../components/Form'
+import AsideButton from '../../components/AsideButton'
 import { Layout } from '../../styles/sign'
 
 const SignUp = () => {
@@ -17,6 +18,8 @@ const SignUp = () => {
 
   return (
     <Layout>
+      <AsideButton />
+
       <div>
         <h1>Sign up</h1>
         <Form

@@ -1,12 +1,35 @@
 import styled from 'styled-components'
 
+export const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #513c59;
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+
+  background: none;
+  border-radius: none;
+  padding: none;
+
+  svg {
+    color: #513c59;
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+`
+
 export const Header = styled.header`
   height: 40px;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.2);
 
   div {
     display: flex;
@@ -14,28 +37,10 @@ export const Header = styled.header`
   }
 
   a {
-    color: #eee;
+    color: #2d2d2d;
 
     & + a {
-      margin-left: 20px;
-    }
-
-    button {
-      cursor: pointer;
-      color: #eee;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Heebo', sans-serif;
-
-      /* title */
-      font-size: 14px;
-
-      /* background */
-      background: none;
-      border-radius: none;
-      padding: none;
+      margin-left: 25px;
     }
   }
 `

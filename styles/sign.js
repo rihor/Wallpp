@@ -10,6 +10,7 @@ export const Layout = styled.div`
   background-size: 100% 100%;
   width: 100%;
   height: auto;
+  position: relative;
 
   > div {
     background: #fff;

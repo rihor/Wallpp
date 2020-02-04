@@ -1,3 +1,4 @@
 export default {
-  session: 'SESSION'
+  session: 'SESSION',
+  user: 'USER'
 }

@@ -1,28 +1,30 @@
 import React from 'react'
 import Link from 'next/link'
-import { toast } from 'react-toastify'
+import Router from 'next/router'
 
 import Form from '../../components/Form'
 import Cookie from '../../services/cookie'
 import Api from '../../services/api'
 
+import AsideButton from '../../components/AsideButton'
 import { Layout } from '../../styles/sign'
 
 const SignIn = () => {
   async function handleSubmit(data) {
-    const { token } = await Api.post({ pathUrl: '/session', data })
+    const { token, user } = await Api.post({ pathUrl: '/session', data })
 
     if (!token) return
-
     Cookie.setSession(token)
+    Cookie.setUser(user)
 
     if (!Cookie.getSession()) return
-
-    toast.success('Login succeeded')
+    Router.push('/')
   }
 
   return (
     <Layout>
+      <AsideButton />
+
       <div>
         <h1>Sign in</h1>
         <Form email password buttonText="Sign in" onSubmit={handleSubmit} />

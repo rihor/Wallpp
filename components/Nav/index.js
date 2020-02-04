@@ -1,40 +1,57 @@
 import React from 'react'
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 import { MdAddBox } from 'react-icons/md'
 
-import { Header } from './styles'
+import { Header, Button } from './styles'
 
-const Nav = () => (
+const Nav = ({ user }) => (
   <Header>
     <div>
       <Link href="/">
         <a>
-          <button>Wallpp</button>
+          <Button>WALLPP</Button>
         </a>
       </Link>
       <Link href="/wallpaper/create">
         <a>
-          <button>
-            <MdAddBox size={20} color="#eee" />
-            New post
-          </button>
+          <Button>
+            <MdAddBox />
+            NEW POST
+          </Button>
         </a>
       </Link>
     </div>
 
     <div>
-      <Link href="/signin">
-        <a>
-          <button>Sign in</button>
-        </a>
-      </Link>
-      <Link href="/signup">
-        <a>
-          <button>Sign up</button>
-        </a>
-      </Link>
+      {user ? (
+        <Link href={`/profile/${user.username}`}>
+          <a>
+            <Button>Profile</Button>
+          </a>
+        </Link>
+      ) : (
+        <>
+          <Link href="/signin">
+            <a>
+              <Button>SIGN IN</Button>
+            </a>
+          </Link>
+          <Link href="/signup">
+            <a>
+              <Button>SIGN UP</Button>
+            </a>
+          </Link>
+        </>
+      )}
     </div>
   </Header>
 )
+
+Nav.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string
+  })
+}
 
 export default Nav

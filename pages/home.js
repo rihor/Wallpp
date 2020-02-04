@@ -1,51 +1,75 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import Api from '../services/api'
-import Nav from '../components/nav'
+import Cookie from '../services/cookie'
+import Nav from '../components/Nav'
 import WallpaperCard from '../components/WallpaperCard'
-import { Background } from '../styles'
+import { PageContainer, BodyContainer } from '../styles/home'
 
-const Home = ({ wallpapers }) => (
-  <Background>
-    <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const Home = ({ ssrWallpapers, ssrPage }) => {
+  const [wallpapers, setWallpapers] = useState(ssrWallpapers)
+  const [page, setPage] = useState(ssrPage)
 
-    <Nav />
-    <div>
-      <ul>
-        {wallpapers &&
-          wallpapers.map(w => <WallpaperCard key={w.id} wallpaper={w} />)}
-      </ul>
-    </div>
-  </Background>
-)
+  async function handleLoad(pageToLoad = 1) {
+    const response = await Api.get({
+      pathUrl: '/wallpapers',
+      options: { returnAll: true }
+    })
+
+    setWallpapers(response.data.data)
+    setPage(pageToLoad)
+  }
+
+  return (
+    <PageContainer>
+      <Head>
+        <title>Home</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <Nav user={Cookie.getUser()} />
+
+      <BodyContainer>
+        <InfiniteScroll
+          next={() => handleLoad(page + 1)}
+          dataLength={wallpapers.length}
+          loader={<div>Loading...</div>}
+        >
+          {wallpapers &&
+            wallpapers.map(w => <WallpaperCard key={w.id} wallpaper={w} />)}
+        </InfiniteScroll>
+      </BodyContainer>
+    </PageContainer>
+  )
+}
 
 Home.getInitialProps = async () => {
-  const response = await Api.get({ pathUrl: 'wallpapers' })
+  const data = await Api.get({
+    pathUrl: '/wallpapers'
+  })
 
   return {
-    wallpapers: response.data.data,
-    page: response.data.page,
-    lastPage: response.data.lastPage,
-    perPage: response.data.perPage
+    ssrWallpapers: data.data,
+    ssrPage: data.page,
+    ssrLastPage: data.lastPage,
+    ssrPerPage: data.perPage
   }
 }
 
 Home.propTypes = {
-  wallpapers: PropTypes.arrayOf(
+  ssrWallpapers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
       description: PropTypes.string
     })
   ),
-  page: PropTypes.number,
-  lastPage: PropTypes.number,
-  perPage: PropTypes.number
+  ssrPage: PropTypes.number,
+  ssrLastPage: PropTypes.number,
+  ssrPerPage: PropTypes.number
 }
 
 export default Home

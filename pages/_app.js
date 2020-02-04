@@ -10,7 +10,7 @@ import Cookie from '../services/cookie'
 import Redirect from '../pages/redirect'
 
 export default class MyApp extends App {
-  static async getInitialProps({ ctx }) {
+  static async getInitialProps({ Component, ctx }) {
     const { pathname } = ctx
     const token = Cookie.getSession(ctx)
 
@@ -23,7 +23,14 @@ export default class MyApp extends App {
       return { allow: false }
     }
 
-    return { allow: true }
+    // LOAD getInitialProps from page
+    const pagePropsTask = Component.getInitialProps
+      ? Component.getInitialProps(ctx)
+      : {}
+
+    const pageProps = await pagePropsTask
+
+    return { allow: true, pageProps }
   }
 
   componentDidMount() {
