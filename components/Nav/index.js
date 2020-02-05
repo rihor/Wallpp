@@ -27,7 +27,7 @@ const Nav = ({ user }) => (
       {user ? (
         <Link href={`/profile/${user.username}`}>
           <a>
-            <Button>Profile</Button>
+            <Button>PROFILE</Button>
           </a>
         </Link>
       ) : (

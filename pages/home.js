@@ -7,19 +7,18 @@ import Api from '../services/api'
 import Cookie from '../services/cookie'
 import Nav from '../components/Nav'
 import WallpaperCard from '../components/WallpaperCard'
-import { PageContainer, BodyContainer } from '../styles/home'
+import { PageContainer, BodyContainer } from '../styles/layout'
 
 const Home = ({ ssrWallpapers, ssrPage }) => {
   const [wallpapers, setWallpapers] = useState(ssrWallpapers)
   const [page, setPage] = useState(ssrPage)
 
   async function handleLoad(pageToLoad = 1) {
-    const response = await Api.get({
-      pathUrl: '/wallpapers',
-      options: { returnAll: true }
+    const data = await Api.get({
+      pathUrl: '/wallpapers'
     })
 
-    setWallpapers(response.data.data)
+    setWallpapers(data.data)
     setPage(pageToLoad)
   }
 
