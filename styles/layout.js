@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const PageContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   padding: 40px 50px;
   background-color: #faaca8;
   background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);

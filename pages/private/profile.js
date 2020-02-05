@@ -32,7 +32,7 @@ const Profile = ({ userExists, wallpapers, user }) => {
             <ul>
               {wallpapers &&
                 wallpapers.map(w => <WallpaperCard key={w.id} wallpaper={w} />)}
-            </ul>{' '}
+            </ul>
           </>
         ) : (
           <UserNotFound>
