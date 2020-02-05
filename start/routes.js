@@ -27,7 +27,7 @@ Route.get('/files/:id', 'FileController.show')
 Route.group(() => {
   Route.post('/files', 'FileController.store')
 
-  Route.get('/users/:id', 'UserController.show')
+  Route.get('/users/:username', 'UserController.show')
 }).middleware(['auth'])
 
 Route.resource('wallpapers', 'WallpaperController')
