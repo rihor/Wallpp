@@ -60,6 +60,8 @@ class WallpaperController {
 
     // will return with user data
     await wallpaper.load('user')
+    // will return with url
+    await wallpaper.load('file')
 
     return wallpaper
   }
