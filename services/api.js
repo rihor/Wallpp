@@ -21,13 +21,10 @@ class Api {
     })
   }
 
-  saveToken(token) {
-    this.api.defaults.headers.Authorization = `Bearer ${token}`
-  }
-
-  get({ params, pathUrl }) {
+  get({ params, pathUrl, token }) {
     return this.api
-      .get(pathUrl, { params })
+      .get(pathUrl, { params, headers: { Authorization: `Bearer ${token}` } })
+
       .then(response => {
         return response.data
       })
@@ -36,9 +33,9 @@ class Api {
       })
   }
 
-  post({ data, pathUrl }) {
+  post({ data, pathUrl, token }) {
     return this.api
-      .post(pathUrl, data)
+      .post(pathUrl, data, { headers: { Authorization: `Bearer ${token}` } })
       .then(response => {
         return response.data
       })
@@ -47,9 +44,9 @@ class Api {
       })
   }
 
-  put({ data, pathUrl }) {
+  put({ data, pathUrl, token }) {
     return this.api
-      .put(pathUrl, data)
+      .put(pathUrl, data, { headers: { Authorization: `Bearer ${token}` } })
       .then(response => {
         return response.data
       })
@@ -58,9 +55,9 @@ class Api {
       })
   }
 
-  delete({ pathUrl }) {
+  delete({ pathUrl, token }) {
     return this.api
-      .delete(pathUrl)
+      .delete(pathUrl, { headers: { Authorization: `Bearer ${token}` } })
       .then(response => {
         return response.data
       })

@@ -34,6 +34,20 @@ function CustomForm({
       <Formik initialValues={getInitialValue()} onSubmit={onSubmit}>
         {() => (
           <Form>
+            {title && (
+              <div>
+                <label htmlFor="title">Title</label>
+                <Field name="title" id="title" />
+                <ErrorMessage name="title" />
+              </div>
+            )}
+            {description && (
+              <div>
+                <label htmlFor="description">Description</label>
+                <Field name="description" id="description" />
+                <ErrorMessage name="description" />
+              </div>
+            )}
             {username && (
               <div>
                 <label htmlFor="username">Username</label>
