@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import UploadWallpaper from '../../components/UploadWallpaper'
-import Form from '../../components/Form'
 import Api from '../../services/api'
 import Cookie from '../../services/cookie'
+import Nav from '../../components/Nav'
+import Form from '../../components/Form'
+import UploadWallpaper from '../../components/UploadWallpaper'
+import { PageContainer } from '../../styles/layout'
+import { Body, FormContainer, UploadContainer } from '../../styles/create'
 
 export default function Create() {
   const [fileId, setFileId] = useState(undefined)
@@ -21,14 +24,21 @@ export default function Create() {
   }
 
   return (
-    <div>
-      <UploadWallpaper setFileId={setFileId} />
-      <Form
-        title
-        description
-        onSubmit={handleCreateWallpaper}
-        buttonText="Enviar"
-      />
-    </div>
+    <PageContainer>
+      <Nav user={Cookie.getUser()} />
+      <Body>
+        <UploadContainer>
+          <UploadWallpaper setFileId={setFileId} />
+        </UploadContainer>
+        <FormContainer>
+          <Form
+            title
+            description
+            onSubmit={handleCreateWallpaper}
+            buttonText="Enviar"
+          />
+        </FormContainer>
+      </Body>
+    </PageContainer>
   )
 }

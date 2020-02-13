@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import Api from '../../services/api'
 import Cookie from '../../services/cookie'
+import { Container, ContainerPlaceholder } from './styles'
 
 export default function UploadWallpaper({ setFileId }) {
   const [file, setFile] = useState(null)
@@ -34,17 +35,28 @@ export default function UploadWallpaper({ setFileId }) {
   }, [file])
 
   return (
-    <div>
-      <input type="file" name="file" accept="image/*" onChange={handleChange} />
-      {preview && <img src={preview} width={300} height={300} />}
-    </div>
+    <Container>
+      <label htmlFor="file">
+        <input
+          id="file"
+          type="file"
+          name="file"
+          accept="image/*"
+          onChange={handleChange}
+        />
+        {preview ? (
+          <img src={preview} />
+        ) : (
+          <ContainerPlaceholder>
+            <div>
+              <span>Insert a wallpaper</span>
+            </div>
+          </ContainerPlaceholder>
+        )}
+      </label>
+    </Container>
   )
 }
-
-// UploadWallpaper.getInitialProps = async ctx => {
-//   const token = Api.getToken(ctx)
-//   return { token }
-// }
 
 UploadWallpaper.propTypes = {
   isUploading: PropTypes.bool,

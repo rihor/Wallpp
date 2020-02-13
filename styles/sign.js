@@ -7,6 +7,7 @@ export const Layout = styled.div`
   align-items: center;
   justify-content: center;
   background-image: url(${bgMesh});
+  background-color: #eac4d2;
   background-size: 100% 100%;
   width: 100%;
   height: auto;
@@ -30,6 +31,7 @@ export const Layout = styled.div`
       label {
         color: #000;
         font-size: 16px;
+        font-weight: bold;
       }
 
       input {

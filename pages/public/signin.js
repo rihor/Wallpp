@@ -16,7 +16,6 @@ const SignIn = () => {
     if (!token) return
     Cookie.setSession(token)
     Cookie.setUser(user)
-    Api.saveToken(token)
 
     if (!Cookie.getSession()) return
     Router.push('/')

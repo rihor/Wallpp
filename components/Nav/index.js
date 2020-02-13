@@ -13,14 +13,16 @@ const Nav = ({ user }) => (
           <Button>WALLPP</Button>
         </a>
       </Link>
-      <Link href="/wallpaper/create">
-        <a>
-          <Button>
-            <MdAddBox />
-            NEW POST
-          </Button>
-        </a>
-      </Link>
+      {user && (
+        <Link href="/wallpaper/create">
+          <a>
+            <Button>
+              <MdAddBox />
+              NEW POST
+            </Button>
+          </a>
+        </Link>
+      )}
     </div>
 
     <div>

@@ -26,7 +26,7 @@ export const Button = styled.button`
 
 export const Header = styled.header`
   height: 40px;
-  padding: 0 40px;
+  padding: 0 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,6 +41,18 @@ export const Header = styled.header`
 
     & + a {
       margin-left: 25px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    & {
+      padding: 0 25px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    & {
+      padding: 0 2px;
     }
   }
 `

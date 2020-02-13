@@ -44,7 +44,11 @@ function CustomForm({
             {description && (
               <div>
                 <label htmlFor="description">Description</label>
-                <Field name="description" id="description" />
+                <Field
+                  name="description"
+                  id="description"
+                  component="textarea"
+                />
                 <ErrorMessage name="description" />
               </div>
             )}
