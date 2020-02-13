@@ -5,13 +5,17 @@ import React from 'react'
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     const sheet = new ServerStyleSheet()
-    const page = renderPage(App => props =>
-      sheet.collectStyles(<App {...props} />)
-    )
+    try {
+      const page = renderPage(App => props =>
+        sheet.collectStyles(<App {...props} />)
+      )
 
-    const styleTags = sheet.getStyleElement()
+      const styleTags = sheet.getStyleElement()
 
-    return { ...page, styleTags }
+      return { ...page, styleTags }
+    } finally {
+      sheet.seal()
+    }
   }
 
   render() {
