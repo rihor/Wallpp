@@ -3,22 +3,25 @@ import PropTypes from 'prop-types'
 
 import { Container } from './styles'
 
-export default function WallpaperCard({ wallpaper }) {
-  return (
-    <Container>
+const WallpaperCard = ({ wallpaper }) => (
+  <Container>
+    <div>
       <img src={wallpaper.file.url} />
-      <div>
-        <span>{wallpaper.title}</span>
-      </div>
-    </Container>
-  )
-}
+    </div>
+    <section>
+      <span>{wallpaper.title}</span>
+    </section>
+  </Container>
+)
 
 WallpaperCard.propTypes = {
   wallpaper: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     file: PropTypes.shape({
       url: PropTypes.string
     })
   })
 }
+
+export default WallpaperCard

@@ -8,7 +8,7 @@ import Cookie from '../../services/cookie'
 import Nav from '../../components/Nav'
 import WallpaperCard from '../../components/WallpaperCard'
 import { PageContainer, BodyContainer } from '../../styles/layout'
-import { Hero, UserInfo, UserNotFound } from '../../styles/profile'
+import { Hero, UserInfo, UserNotFound, List } from '../../styles/profile'
 
 const Profile = ({ userExists, wallpapers, user }) => {
   useEffect(() => {
@@ -29,10 +29,10 @@ const Profile = ({ userExists, wallpapers, user }) => {
                 <h1>{user.username}</h1>
               </UserInfo>
             </Hero>
-            <ul>
+            <List>
               {wallpapers &&
                 wallpapers.map(w => <WallpaperCard key={w.id} wallpaper={w} />)}
-            </ul>
+            </List>
           </>
         ) : (
           <UserNotFound>
@@ -46,13 +46,12 @@ const Profile = ({ userExists, wallpapers, user }) => {
 }
 
 Profile.getInitialProps = async ctx => {
-  // When SSR the Api instance doesn't have the Authorization saved
   const token = Cookie.getSession(ctx)
-  Api.saveToken(token)
 
   try {
     const { username, email, wallpapers } = await Api.get({
-      pathUrl: `users/${ctx.query.username}`
+      pathUrl: `users/${ctx.query.username}`,
+      token
     })
 
     return {

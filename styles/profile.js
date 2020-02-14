@@ -23,6 +23,12 @@ export const UserInfo = styled.div`
   }
 `
 
+export const List = styled.ul`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+`
+
 export const UserNotFound = styled.div`
   display: flex;
   flex-direction: column;

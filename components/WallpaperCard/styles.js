@@ -1,38 +1,27 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  position: relative;
-  width: 20%;
-  height: 20%;
-
-  img {
-    width: 100%;
-    height: 100%;
-    background: #eee;
-  }
+export const Container = styled.li`
+  margin: 5px;
 
   div {
-    opacity: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 98%;
+    height: 240px;
+    width: 240px;
 
-    span {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      width: 90%;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 240px;
+      border-radius: 4px 4px 0 0;
     }
   }
 
-  div:hover {
-    opacity: 1;
+  section {
+    border-radius: 0 0 4px 4px;
+    padding: 10px 15px;
+    background: #fff;
+
+    span {
+      font-weight: bold;
+    }
   }
 `
