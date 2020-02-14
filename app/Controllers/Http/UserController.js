@@ -13,9 +13,10 @@ class UserController {
 
   // uses username to get user
   async show({ params }) {
-    const user = await User.findByOrFail('username', params.username)
-
-    await user.load('wallpapers.file')
+    const user = await User.query()
+      .where('username', params.username)
+      .with('wallpapers.file')
+      .fetch()
 
     return user
   }
