@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import { MdClear } from 'react-icons/md'
+import { MdClear, MdSettings, MdHighlightOff } from 'react-icons/md'
 
 import Api from '../../services/api'
 import Cookie from '../../services/cookie'
@@ -10,12 +10,20 @@ import WallpaperCard from '../../components/WallpaperCard'
 import { PageContainer, BodyContainer } from '../../styles/layout'
 import { Hero, UserInfo, UserNotFound, List } from '../../styles/profile'
 
-const Profile = ({ userExists, wallpapers, user }) => {
+const Profile = ({ userExists, wallpapers, user, isUser }) => {
   useEffect(() => {
     if (!userExists) {
       Router.push('/home')
     }
   }, [])
+
+  function handleEdit() {
+    Router.push(`/profile/${user.username}/edit`)
+  }
+
+  function handleSignOut() {
+    Router.push('/signout')
+  }
 
   return (
     <PageContainer>
@@ -28,6 +36,18 @@ const Profile = ({ userExists, wallpapers, user }) => {
               <UserInfo>
                 <h1>{user.username}</h1>
               </UserInfo>
+              {isUser && (
+                <section>
+                  <button onClick={handleEdit}>
+                    <MdSettings />
+                    Edit profile
+                  </button>
+                  <button onClick={handleSignOut}>
+                    <MdHighlightOff />
+                    Sign out
+                  </button>
+                </section>
+              )}
             </Hero>
             <List>
               {wallpapers &&
@@ -47,6 +67,7 @@ const Profile = ({ userExists, wallpapers, user }) => {
 
 Profile.getInitialProps = async ctx => {
   const token = Cookie.getSession(ctx)
+  const clientUser = Cookie.getUser(ctx)
 
   try {
     const { username, email, wallpapers } = await Api.get({
@@ -57,7 +78,8 @@ Profile.getInitialProps = async ctx => {
     return {
       userExists: true,
       user: { username, email },
-      wallpapers
+      wallpapers,
+      isUser: clientUser.email === email
     }
   } catch (error) {
     return {
@@ -67,6 +89,7 @@ Profile.getInitialProps = async ctx => {
 }
 
 Profile.propTypes = {
+  isUser: PropTypes.bool,
   userExists: PropTypes.bool,
   wallpapers: PropTypes.arrayOf(
     PropTypes.shape({

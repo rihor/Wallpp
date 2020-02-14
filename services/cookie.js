@@ -5,7 +5,7 @@
  * https://github.com/maticzav/nookies
  */
 
-import { parseCookies, setCookie } from 'nookies'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 import cookieConfig from '../configs/cookie'
 
@@ -23,8 +23,8 @@ class Cookie {
     return setCookie(context, cookieConfig.session, value, options)
   }
 
-  removeSession(context = {}) {
-    return this.cookie.remove(context, cookieConfig.session)
+  removeSession(context = {}, options) {
+    destroyCookie(context, cookieConfig.session, options)
   }
 
   /**
@@ -46,8 +46,8 @@ class Cookie {
     return setCookie(context, cookieConfig.user, user, options)
   }
 
-  removeUser(context = {}) {
-    return this.cookie.remove(context, cookieConfig.user)
+  removeUser(context = {}, options) {
+    destroyCookie(context, cookieConfig.user, options)
   }
 }
 

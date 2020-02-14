@@ -9,6 +9,38 @@ export const Hero = styled.section`
   img {
     border-radius: 50%;
   }
+
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button {
+      margin: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all 0.3s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      &:active {
+        box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.05);
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+      }
+    }
+  }
 `
 
 export const UserInfo = styled.div`
