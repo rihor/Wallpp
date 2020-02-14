@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('users', 'UserController.store').validator('User')
+Route.post('users', 'UserController.store').validator('User/Store')
 Route.post('session', 'SessionController.store').validator('Session')
 
 Route.get('/files/:id', 'FileController.show')
@@ -28,6 +28,10 @@ Route.group(() => {
   Route.post('/files', 'FileController.store')
 
   Route.get('/users/:username', 'UserController.show')
+
+  Route.put('/users/:username/edit', 'UserController.update').validator(
+    'User/Update'
+  )
 }).middleware(['auth'])
 
 Route.resource('wallpapers', 'WallpaperController')

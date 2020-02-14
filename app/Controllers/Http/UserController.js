@@ -19,6 +19,18 @@ class UserController {
 
     return user
   }
+
+  async update({ request, params }) {
+    const data = request.all()
+
+    const user = await User.findByOrFail('username', params.username)
+
+    user.merge(data)
+
+    await user.save()
+
+    return user
+  }
 }
 
 module.exports = UserController
