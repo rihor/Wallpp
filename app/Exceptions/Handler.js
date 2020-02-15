@@ -38,6 +38,10 @@ class ExceptionHandler extends BaseExceptionHandler {
         return response
           .status(error.status)
           .send({ error: "Couldn't find the file, please check your input" })
+      case 'PasswordMisMatchException':
+        return response
+          .status(error.status)
+          .send({ error: 'Incorrect password' })
     }
 
     if (Env.get('NODE_ENV') === 'development') {

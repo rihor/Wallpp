@@ -25,7 +25,7 @@ class WallpaperController {
 
     const wallpapers = await Wallpaper.query()
       .with('file')
-      .paginate(page)
+      .paginate(page, 8)
 
     return wallpapers
   }
