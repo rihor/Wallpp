@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import { MdClear, MdSettings, MdHighlightOff } from 'react-icons/md'
@@ -11,12 +11,6 @@ import { PageContainer, BodyContainer } from '../../styles/layout'
 import { Hero, UserInfo, UserNotFound, List } from '../../styles/profile'
 
 const Profile = ({ userExists, wallpapers, user, isUser }) => {
-  useEffect(() => {
-    if (!userExists) {
-      Router.push('/home')
-    }
-  }, [])
-
   function handleEdit() {
     Router.push(`/profile/${user.username}/edit`)
   }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Router from 'next/router'
 import { toast } from 'react-toastify'
 
 import Api from '../../services/api'
@@ -20,6 +21,8 @@ export default function Create() {
     })
     if (wallpaper) {
       toast.success(`Wallpaper: "${wallpaper.title}" created`)
+
+      Router.push('/')
     }
   }
 

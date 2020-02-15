@@ -5,6 +5,7 @@ import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { FormContainer } from './styles'
 
 function CustomForm({
+  initialData = undefined,
   username = false,
   email = false,
   password = false,
@@ -16,6 +17,16 @@ function CustomForm({
   onSubmit
 }) {
   function getInitialValue() {
+    // check if initialData is empty
+    if (
+      initialData !== undefined &&
+      initialData !== null &&
+      Object.entries(initialData).length !== 0 &&
+      initialData.constructor === Object
+    ) {
+      return initialData
+    }
+
     const initialValue = {
       username: username ? '' : undefined,
       email: email ? '' : undefined,
@@ -102,6 +113,7 @@ CustomForm.propTypes = {
   description: PropTypes.bool,
   file: PropTypes.bool,
   passwordConfirmation: PropTypes.bool,
+  initialData: PropTypes.shape({}),
   buttonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired
 }
