@@ -10,8 +10,8 @@ class User {
   get rules() {
     return {
       // validation rules
-      username: 'unique:users',
-      email: 'email|unique:users',
+      username: 'string',
+      email: 'email',
       password: 'confirmed'
     }
   }
