@@ -21,7 +21,7 @@ class UserController {
   }
 
   async update({ request, params }) {
-    const data = request.all()
+    const data = request.except(['created_at', 'password_confirmation'])
 
     const user = await User.findByOrFail('username', params.username)
 
