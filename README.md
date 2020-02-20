@@ -1,2 +1,0 @@
-# Wallpp
- Wallpaper app
