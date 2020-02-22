@@ -1,54 +1,46 @@
-import React, { createContext, useReducer, useEffect, Dispatch } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import sessionReducer from './reducer';
 
-import { Action } from './actions';
 import Api from '../../services/api';
+import { sessionStorage } from '../../services/storage';
 
-export interface Session {
-  token: string | null;
-  profile: object | null;
-  isSigned: boolean;
-  Provider?: null;
-}
-
-interface Store {
-  session: Session;
-  dispatch: React.Dispatch<Action>;
-}
-
-interface Props {
-  children: JSX.Element;
-}
-
-const initialState: Session = {
+const initialState: Store = {
   token: null,
   isSigned: false,
   profile: null,
 };
 
 // contêm o provider e o consumer, essencial para o uso do estado global
-export const SessionContext = createContext<Session | Store>(initialState);
+export const SessionContext = createContext<Store | Provided>(initialState);
 
 function SessionContextProvider({ children }: Props): JSX.Element {
-  const [session, dispatch] = useReducer(sessionReducer, initialState, () => {
-    const localData = localStorage.getItem('session');
+  const [session, dispatch] = useReducer(
+    sessionReducer,
+    initialState,
+    async () => {
+      const storedSession = await sessionStorage.get();
 
-    // usa os dados guardados no localStorage
-    if (localData) {
-      const parsedLocalData: Session = JSON.parse(localData);
-      const { token } = parsedLocalData;
-      Api.saveToken(token); // coloca o token salvo no axios
-      return parsedLocalData;
-    }
+      if (storedSession) {
+        const parsedSession: Store = JSON.parse(storedSession);
+        const { token } = parsedSession;
 
-    // caso não tenha nada no localStorage
-    return initialState;
-  });
+        Api.saveToken(token);
+
+        return parsedSession;
+      }
+
+      // in case the storage is empty
+      return initialState;
+    },
+  );
 
   useEffect(() => {
-    localStorage.setItem('session', JSON.stringify(session));
-    // sempre que o token mudar ele é salvo na config do axios
-    Api.saveToken(session.token);
+    async function storeNewSession(): Promise<void> {
+      await sessionStorage.set(JSON.stringify(session));
+      Api.saveToken(session.token);
+    }
+
+    storeNewSession();
   }, [session]);
 
   return (
