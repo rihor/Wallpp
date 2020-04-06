@@ -43,3 +43,7 @@ Route.resource('wallpapers', 'WallpaperController')
     ])
   )
   .middleware(new Map([[['store', 'update', 'destroy'], ['auth']]]))
+
+Route.get('/', () => {
+  return { message: "Try route /users/" }
+})
